@@ -1941,7 +1941,7 @@
             "padding" : "0px",
             "settings" : {
               "cardHtml" : "<div class='card'>\n    <div class='content'>\n        <div class='column'>\n            <h1>${entityLabel}</h1>\n        </div>\n    </div>\n</div>",
-              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: #999;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-decoration: underline;\n}"
+              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: rgba(0,0,0,0.7);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-transform: uppercase;\n}"
             },
             "title" : "HTML Value Card",
             "dropShadow" : true,
@@ -2663,8 +2663,8 @@
             "color" : "rgba(0, 0, 0, 0.87)",
             "padding" : "8px",
             "settings" : {
-              "cardHtml" : "<div class='card'>Sites overview</div>",
-              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: #999;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-decoration: underline;\n}"
+              "cardHtml" : "<div class='card'>\n    <div class='content'>\n        <div class='column'>\n            <h1>Sites overview</h1>\n        </div>\n    </div>\n</div>",
+              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: rgba(0,0,0,0.7);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-transform: uppercase;\n}"
             },
             "title" : "HTML Card",
             "dropShadow" : true
@@ -2702,8 +2702,8 @@
             "color" : "rgba(0, 0, 0, 0.87)",
             "padding" : "8px",
             "settings" : {
-              "cardHtml" : "<div class='card'>Building overview</div>",
-              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: #999;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-decoration: underline;\n}"
+              "cardHtml" : "<div class='card'>\n    <div class='content'>\n        <div class='column'>\n            <h2>Building overview</h2>\n        </div>\n    </div>\n</div>",
+              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: rgba(0,0,0,0.7);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-transform: uppercase;\n}"
             },
             "title" : "HTML Card",
             "dropShadow" : true
@@ -2927,19 +2927,31 @@
                 "usePostProcessing" : null,
                 "postFuncBody" : null
               }, {
-                "name" : "m3",
-                "type" : "timeseries",
-                "label" : "m3",
-                "color" : "#4caf50",
-                "settings" : { },
-                "_hash" : 0.2682271553476244
-              }, {
                 "name" : "deltam3",
                 "type" : "timeseries",
-                "label" : "deltam3",
+                "label" : "Verbruik (m3) / filter",
                 "color" : "#f44336",
                 "settings" : { },
-                "_hash" : 0.3464741627783887
+                "_hash" : 0.3464741627783887,
+                "aggregationType" : "NONE",
+                "units" : "m³",
+                "decimals" : 2,
+                "funcBody" : null,
+                "usePostProcessing" : null,
+                "postFuncBody" : null
+              }, {
+                "name" : "m3",
+                "type" : "timeseries",
+                "label" : "Last meter reading",
+                "color" : "#4caf50",
+                "settings" : { },
+                "_hash" : 0.2682271553476244,
+                "aggregationType" : "NONE",
+                "units" : "m³",
+                "decimals" : 2,
+                "funcBody" : null,
+                "usePostProcessing" : null,
+                "postFuncBody" : null
               } ],
               "alarmFilterConfig" : {
                 "statusList" : [ "ACTIVE" ]
@@ -3906,7 +3918,7 @@
             "padding" : "0px",
             "settings" : {
               "cardHtml" : "<div class='card'>\n    <div class='content'>\n        <div class='column'>\n            <h1>${entityLabel}</h1>\n        </div>\n    </div>\n</div>",
-              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: #999;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-decoration: underline;\n}"
+              "cardCss" : ".card {\n    font-weight: normal;\n    font-size: 40px;\n    color: rgba(0,0,0,0.7);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-transform: uppercase;\n}"
             },
             "title" : "HTML Value Card",
             "dropShadow" : true,
@@ -4848,10 +4860,17 @@
           "id" : "97a38680-3616-1a6b-83a0-f6dc764f9922",
           "alias" : "Devices_Gas-meter",
           "filter" : {
-            "type" : "deviceType",
+            "type" : "deviceSearchQuery",
             "resolveMultiple" : true,
-            "deviceTypes" : [ "Gasmeter" ],
-            "deviceNameFilter" : ""
+            "rootStateEntity" : true,
+            "stateEntityParamName" : null,
+            "defaultStateEntity" : null,
+            "rootEntity" : null,
+            "direction" : "FROM",
+            "maxLevel" : 1,
+            "fetchLastLevelOnly" : false,
+            "relationType" : "Contains",
+            "deviceTypes" : [ "Gasmeter" ]
           }
         }
       },
@@ -4872,8 +4891,8 @@
         },
         "history" : {
           "historyType" : 0,
-          "interval" : 900000,
-          "timewindowMs" : 36000000,
+          "interval" : 1800000,
+          "timewindowMs" : 604800000,
           "fixedTimewindow" : null,
           "quickInterval" : "YESTERDAY",
           "hideInterval" : false,
