@@ -2231,7 +2231,7 @@
           "config" : {
             "datasources" : [ {
               "type" : "entity",
-              "entityAliasId" : "0024b7b5-641d-7cca-b446-1d1750fe6c91",
+              "entityAliasId" : "e55c9a7a-ed78-3731-e49a-76210b88ca60",
               "dataKeys" : [ ],
               "alarmFilterConfig" : {
                 "statusList" : [ "ACTIVE" ]
@@ -2360,8 +2360,11 @@
                 "icon" : "more_horiz",
                 "useShowWidgetActionFunction" : null,
                 "showWidgetActionFunction" : "return true;",
-                "type" : "custom",
-                "customFunction" : "var deviceService = widgetContext.deviceService;\n\ndeviceService.getDevice(entityId.id, {ignoreLoading: true}).subscribe(\n    function (device) {\n        var deviceType = device.type;\n        var params = {\n            entityId: entityId,\n            entityName: entityName\n        };\n        var targetDashboardStateId;\n        switch (deviceType) {\n          case \"energy-meter\":\n              targetDashboardStateId = \"energy_meter\";\n              break;\n          case \"hvac\":\n              targetDashboardStateId = \"hvac\";\n              break;\n          case \"smart-sensor\":\n              targetDashboardStateId = \"smart_sensor\";\n              break;\n          case \"water-meter\":\n              targetDashboardStateId = \"water_meter\";\n              break;\n        }\n        if (targetDashboardStateId) {\n              widgetContext.stateController.openState(targetDashboardStateId, params, false);\n        }\n    }\n);\n",
+                "type" : "updateDashboardState",
+                "targetDashboardStateId" : "device_overview_water",
+                "setEntityId" : true,
+                "stateEntityParamName" : null,
+                "openRightLayout" : false,
                 "openInSeparateDialog" : false,
                 "openInPopover" : false,
                 "id" : "0a6381aa-39eb-c0a8-bea5-1b894f05a0aa"
@@ -3121,9 +3124,9 @@
             "datasources" : [ {
               "type" : "entity",
               "name" : "",
-              "entityAliasId" : "0024b7b5-641d-7cca-b446-1d1750fe6c91",
+              "entityAliasId" : "2045a08c-9625-8785-c7e2-590320ee7b01",
               "dataKeys" : [ {
-                "name" : "deltakWh",
+                "name" : "deltam3",
                 "type" : "timeseries",
                 "label" : "${entityLabel}",
                 "color" : "#2196f3",
@@ -3131,7 +3134,7 @@
                   "yAxisId" : "default",
                   "showInLegend" : true,
                   "dataHiddenByDefault" : false,
-                  "type" : "bar",
+                  "type" : "line",
                   "lineSettings" : {
                     "showLine" : true,
                     "step" : false,
@@ -3196,7 +3199,7 @@
                     "color" : ""
                   }
                 },
-                "_hash" : 0.47558326357648084,
+                "_hash" : 0.33129661322096027,
                 "units" : "kWh",
                 "decimals" : 2
               } ],
@@ -3545,19 +3548,14 @@
             "datasources" : [ {
               "type" : "entity",
               "name" : "",
-              "entityAliasId" : "0024b7b5-641d-7cca-b446-1d1750fe6c91",
+              "entityAliasId" : "2045a08c-9625-8785-c7e2-590320ee7b01",
               "dataKeys" : [ {
-                "name" : "deltakWh",
+                "name" : "deltam3",
                 "type" : "timeseries",
                 "label" : "${entityLabel}",
                 "color" : "#08872B",
                 "settings" : { },
-                "_hash" : 0.4466141608183364,
-                "aggregationType" : "SUM",
-                "funcBody" : null,
-                "usePostProcessing" : null,
-                "postFuncBody" : null,
-                "comparisonEnabled" : null
+                "_hash" : 0.42643399773103763
               } ],
               "alarmFilterConfig" : {
                 "statusList" : [ "ACTIVE" ]
@@ -4337,7 +4335,7 @@
           "config" : {
             "datasources" : [ {
               "type" : "entity",
-              "entityAliasId" : "0024b7b5-641d-7cca-b446-1d1750fe6c91",
+              "entityAliasId" : "e55c9a7a-ed78-3731-e49a-76210b88ca60",
               "dataKeys" : [ ],
               "alarmFilterConfig" : {
                 "statusList" : [ "ACTIVE" ]
@@ -4466,10 +4464,10 @@
                 "icon" : "more_horiz",
                 "useShowWidgetActionFunction" : null,
                 "showWidgetActionFunction" : "return true;",
-                "type" : "openDashboardState",
+                "type" : "updateDashboardState",
                 "targetDashboardStateId" : "device_overview_energy",
                 "setEntityId" : true,
-                "stateEntityParamName" : "Devices_Energy-meter",
+                "stateEntityParamName" : null,
                 "openRightLayout" : false,
                 "openInSeparateDialog" : false,
                 "openInPopover" : false,
@@ -4539,7 +4537,7 @@
           }
         },
         "building_view" : {
-          "name" : "Building view",
+          "name" : "${entityLabel}",
           "root" : false,
           "layouts" : {
             "main" : {
@@ -4587,7 +4585,7 @@
           }
         },
         "device_overview_energy" : {
-          "name" : "Device overview - energy",
+          "name" : "${entityLabel} - Energy meters",
           "root" : false,
           "layouts" : {
             "main" : {
@@ -4668,7 +4666,7 @@
           }
         },
         "device_overview_water" : {
-          "name" : "Device overview - water",
+          "name" : "${entityLabel} - Water meters",
           "root" : false,
           "layouts" : {
             "main" : {
@@ -4833,10 +4831,17 @@
           "id" : "2045a08c-9625-8785-c7e2-590320ee7b01",
           "alias" : "Devices_Water-meter",
           "filter" : {
-            "type" : "deviceType",
+            "type" : "deviceSearchQuery",
             "resolveMultiple" : true,
-            "deviceTypes" : [ "water-meter" ],
-            "deviceNameFilter" : ""
+            "rootStateEntity" : true,
+            "stateEntityParamName" : null,
+            "defaultStateEntity" : null,
+            "rootEntity" : null,
+            "direction" : "FROM",
+            "maxLevel" : 1,
+            "fetchLastLevelOnly" : false,
+            "relationType" : "Contains",
+            "deviceTypes" : [ "water-meter" ]
           }
         },
         "97a38680-3616-1a6b-83a0-f6dc764f9922" : {
@@ -4889,7 +4894,7 @@
         "stateControllerId" : "entity",
         "showTitle" : false,
         "showDashboardsSelect" : true,
-        "showEntitiesSelect" : false,
+        "showEntitiesSelect" : true,
         "showDashboardTimewindow" : true,
         "showDashboardExport" : false,
         "toolbarAlwaysOpen" : true,
@@ -4897,7 +4902,7 @@
         "showDashboardLogo" : false,
         "dashboardLogoUrl" : "tb-image;/api/images/tenant/DOMICA NEW WHITE 2024.JPG",
         "hideToolbar" : false,
-        "showFilters" : false,
+        "showFilters" : true,
         "showUpdateDashboardImage" : false,
         "dashboardCss" : ""
       }
